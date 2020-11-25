@@ -2,9 +2,15 @@ from selenium import webdriver
 import discord, random, names, requests, time
 import requests
 
-def account_creation(driver):
-    first_name = names.get_first_name()
-    last_name = names.get_last_name()
+def account_creation(driver, name):
+    if name == '':  
+        first_name = names.get_first_name()
+        last_name = names.get_last_name()
+    else:
+        first_name = name.split(' ')[0]
+        last_name = name.split(' ')[1]
+        pass
+        
     email = 'test+{}@gmail.com'.format(random.randint(0,1000))
     password = 'createdbyalin123'
     driver.get('https://www.walmart.com/account/signup?ref=domain')
@@ -24,10 +30,18 @@ def account_creation(driver):
     
 
 if __name__ == '__main__':
-    while True:
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
-        driver = webdriver.Chrome(options=chrome_options, executable_path="C:\\Users\\Alin Basuljevic\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe")
-        account_creation(driver)
-    
-    
+    main_menu = input('Random Names [1] or Static Name [2]: ')
+    if main_menu == '2':
+        name = input('Enter Full Name (ex. Test Guy): ')
+        while True:
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
+            driver = webdriver.Chrome(options=chrome_options, executable_path="C:\\Users\\Alin Basuljevic\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe")
+            account_creation(driver, name)
+    else:
+        name = ''
+        while True:
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
+            driver = webdriver.Chrome(options=chrome_options, executable_path="C:\\Users\\Alin Basuljevic\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe")
+            account_creation(driver, name)
